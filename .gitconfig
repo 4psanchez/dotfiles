@@ -1,0 +1,5 @@
+[user]
+	name = psanchez
+	email = pablo.sanchez@teltek.es
+[alias]
+	grafo = log --oneline --graph --decorate --all
