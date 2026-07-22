@@ -1,0 +1,38 @@
+# Historiales
+.zsh_history
+.bash_history
+
+# SSH
+.ssh/id_*
+.ssh/*.pub
+.ssh/known_hosts
+.ssh/authorized_keys
+.ssh/config
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+
+# VSCode
+.config/Code/User/workspaceStorage/
+.config/Code/User/globalStorage/
+
+# Cachés
+.cache/
+
+# Backups
+*.bak*
+.config/org.gnome.Ptyxis/session.gvariant
+.config/tiling-assistant/tiledSessionRestore2.json
+.config/gtk-3.0/bookmarks
+
+# Plugins/temas de Oh My Zsh (se clonan aparte, no se versionan aquí)
+.oh-my-zsh/custom/plugins/fzf-tab/
+.oh-my-zsh/custom/plugins/zsh-autosuggestions/
+.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/
+.oh-my-zsh/custom/themes/powerlevel10k/
+
+# Bytecode compilado de zsh
+*.zwc
