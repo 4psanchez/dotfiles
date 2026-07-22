@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
-code --list-extensions > vscode-extensions.txt
+set -euo pipefail
 
-echo "Exportadas $(wc -l < vscode-extensions.txt) extensiones."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+OUTPUT_FILE="$SCRIPT_DIR/vscode-extensions.txt"
+
+code --list-extensions > "$OUTPUT_FILE"
+
+echo "Exportadas $(wc -l < "$OUTPUT_FILE") extensiones."

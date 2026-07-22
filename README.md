@@ -19,8 +19,8 @@ Mis dotfiles personales: configuración de shell (Zsh + Oh My Zsh + Powerlevel10
 | `bootstrap.sh` | Instala los paquetes base del sistema (apt) |
 | `install.sh` | Crea los symlinks de los dotfiles y clona los plugins de Oh My Zsh |
 | `cleandot.sh` | Limpia el repo de archivos de estado y detecta repos Git anidados |
-| `exportExtensionesvsCode.sh` | Exporta las extensiones instaladas de VSCode a `vscode-extensions.txt` |
-| `installExtensionesvsCode.sh` | Instala extensiones de VSCode desde `vscode-extensions.txt` |
+| `exportExtensionesvsCode.sh` | Exporta las extensiones instaladas de VSCode a `vscode-extensions.txt` (en la misma carpeta que el script) |
+| `installExtensionesvsCode.sh` | Instala extensiones de VSCode desde `vscode-extensions.txt` (en la misma carpeta que el script) |
 
 ## 🚀 Instalación en una máquina nueva
 
@@ -103,6 +103,15 @@ Elimina del control de versiones los archivos de estado (sesiones, cachés) y av
 ## 🖥️ Probado en
 
 - Ubuntu / GNOME
+
+## 📝 Changelog de mantenimiento
+
+Cambios aplicados a los scripts originales para robustecerlos de cara a un uso público del repo:
+
+- **`bootstrap.sh`**: se añadió el shebang (`#!/usr/bin/env bash`) y `set -euo pipefail`, de forma que el script se detiene si falla la instalación de algún paquete en lugar de continuar silenciosamente.
+- **`install.sh`**: se añadió una sección que clona (o actualiza con `git pull`) los plugins de Oh My Zsh —`zsh-autosuggestions`, `zsh-syntax-highlighting`, `fzf-tab`— y el tema `powerlevel10k`, ya que estos dejaron de versionarse directamente en el repo (ver siguiente punto).
+- **`.gitignore`**: se excluyeron las carpetas de plugins/tema de Oh My Zsh (`.oh-my-zsh/custom/plugins/*` y `.oh-my-zsh/custom/themes/powerlevel10k`), porque cada una contiene su propio repositorio Git anidado. Si se versionan tal cual, Git las trata como *gitlinks* rotos y al clonar en otra máquina esas carpetas aparecen vacías. También se excluyó `*.zwc` (bytecode compilado de Zsh, se regenera automáticamente y es específico de cada máquina).
+- **`exportExtensionesvsCode.sh`** / **`installExtensionesvsCode.sh`**: antes asumían que `vscode-extensions.txt` estaba en el directorio actual desde el que se ejecutaba el script. Ahora ambos resuelven la ruta del propio script (`SCRIPT_DIR`), así que funcionan igual sin importar desde dónde se invoquen. `installExtensionesvsCode.sh` también comprueba que el archivo exista antes de intentar leerlo.
 
 ## 📄 Licencia
 
