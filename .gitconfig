@@ -1,5 +1,5 @@
 [user]
 	name = psanchez
-	email = pablo.sanchez@teltek.es
+	email = redacted@example.com
 [alias]
 	grafo = log --oneline --graph --decorate --all
