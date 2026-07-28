@@ -62,16 +62,13 @@ link_file "$DOTFILES/.ssh/config" "$HOME/.ssh/config"
 #########################################
 # Oh My Zsh
 #########################################
-
-mkdir -p "$DOTFILES/.oh-my-zsh"
-
-link_file \
-"$DOTFILES/.oh-my-zsh/custom" \
-"$HOME/.oh-my-zsh/custom"
-
-#########################################
-# Plugins y tema de Oh My Zsh
-#########################################
+# NOTA: NO enlazamos "custom" completo. Oh My Zsh gestiona con git su propio
+# repo y espera que "custom/" sea un directorio real (contiene su
+# "example.zsh" de fábrica). Si "custom" es un symlink, "omz update" falla
+# con "beyond a symbolic link" al hacer autostash.
+#
+# En su lugar, enlazamos solo las subcarpetas que nosotros personalizamos
+# (plugins y tema), dejando el resto de "custom/" intacto.
 
 clone_or_pull() {
     local repo="$1"
@@ -79,24 +76,50 @@ clone_or_pull() {
 
     if [[ -d "$dest/.git" ]]; then
         echo "  Actualizando: $dest"
-        git -C "$dest" pull --ff-only
+        git -C "$dest" pull --quiet
     else
-        echo "  Clonando: $dest"
-        git clone --depth=1 "$repo" "$dest"
+        echo "  Clonando: $repo -> $dest"
+        git clone --quiet --depth=1 "$repo" "$dest"
     fi
 }
 
-clone_or_pull "https://github.com/zsh-users/zsh-autosuggestions" \
-    "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+mkdir -p "$HOME/.oh-my-zsh/custom/plugins"
+mkdir -p "$HOME/.oh-my-zsh/custom/themes"
 
-clone_or_pull "https://github.com/zsh-users/zsh-syntax-highlighting" \
-    "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+mkdir -p "$DOTFILES/.oh-my-zsh/custom/plugins"
+mkdir -p "$DOTFILES/.oh-my-zsh/custom/themes"
 
-clone_or_pull "https://github.com/Aloxaf/fzf-tab" \
-    "$HOME/.oh-my-zsh/custom/plugins/fzf-tab"
+clone_or_pull \
+"https://github.com/Aloxaf/fzf-tab" \
+"$DOTFILES/.oh-my-zsh/custom/plugins/fzf-tab"
 
-clone_or_pull "https://github.com/romkatv/powerlevel10k" \
-    "$HOME/.oh-my-zsh/custom/themes/powerlevel10k"
+clone_or_pull \
+"https://github.com/zsh-users/zsh-autosuggestions" \
+"$DOTFILES/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+
+clone_or_pull \
+"https://github.com/zsh-users/zsh-syntax-highlighting" \
+"$DOTFILES/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+
+clone_or_pull \
+"https://github.com/romkatv/powerlevel10k" \
+"$DOTFILES/.oh-my-zsh/custom/themes/powerlevel10k"
+
+link_file \
+"$DOTFILES/.oh-my-zsh/custom/plugins/fzf-tab" \
+"$HOME/.oh-my-zsh/custom/plugins/fzf-tab"
+
+link_file \
+"$DOTFILES/.oh-my-zsh/custom/plugins/zsh-autosuggestions" \
+"$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
+
+link_file \
+"$DOTFILES/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" \
+"$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"
+
+link_file \
+"$DOTFILES/.oh-my-zsh/custom/themes/powerlevel10k" \
+"$HOME/.oh-my-zsh/custom/themes/powerlevel10k"
 
 #########################################
 # CONFIG
