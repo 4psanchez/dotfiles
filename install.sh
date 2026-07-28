@@ -83,6 +83,18 @@ clone_or_pull() {
     fi
 }
 
+# IMPORTANTE: si "custom" es (todavía) el symlink heredado de versiones
+# anteriores de este script, hay que sustituirlo por un directorio real
+# ANTES de crear los symlinks por plugin/tema. Si no, los "target" de abajo
+# atraviesan el symlink antiguo y acaban creando symlinks autorreferenciados
+# dentro del propio repo de dotfiles.
+if [[ -L "$HOME/.oh-my-zsh/custom" ]]; then
+    echo "  Detectado symlink antiguo en custom, convirtiendo a directorio real..."
+    rm "$HOME/.oh-my-zsh/custom"
+    mkdir -p "$HOME/.oh-my-zsh/custom"
+    (cd "$HOME/.oh-my-zsh" && git checkout -- custom/example.zsh custom/example.zsh-theme 2>/dev/null || true)
+fi
+
 mkdir -p "$HOME/.oh-my-zsh/custom/plugins"
 mkdir -p "$HOME/.oh-my-zsh/custom/themes"
 
