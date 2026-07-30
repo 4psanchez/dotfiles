@@ -12,7 +12,7 @@ Mis dotfiles personales: configuración de shell (Zsh + Oh My Zsh + Powerlevel10
 | `.gitconfig` | Configuración global de Git |
 | `.bashrc` / `.profile` | Configuración de Bash |
 | `.ssh/config` | Configuración de cliente SSH (sin claves ni hosts sensibles) |
-| `.config/Code/User` | Settings, keybindings y snippets de VSCode |
+| `.config/Code/User` | Settings y snippets de VSCode |
 | `.config/flameshot` | Configuración de Flameshot |
 | `.config/htop` | Configuración de htop |
 | `.config/gtk-3.0`, `.config/tiling-assistant`, `.config/org.gnome.Ptyxis` | Configuración de escritorio GNOME |
@@ -43,7 +43,7 @@ cd ~/dotfiles
 bash bootstrap.sh
 ```
 
-Instala: `git`, `curl`, `wget`, `zsh`, `eza`, `bat`, `fzf`, `zoxide`, `htop`, `btop`, `unzip`, `ripgrep`.
+Añade los repositorios externos de Docker, Google Chrome y HashiCorp, y luego instala: `git`, `curl`, `wget`, `zsh`, `eza`, `bat`, `fzf`, `zoxide`, `htop`, `btop`, `unzip`, `ripgrep`, `tmux`, `tree`, `zip`, `traceroute`, `shellcheck`, `npm`, `openvpn`, `terraform`, `google-chrome-stable`, `docker-ce`, `docker-ce-cli`, `containerd.io`, `docker-buildx-plugin`, `docker-compose-plugin`.
 
 ### 3. Instalar Oh My Zsh (si no está instalado)
 
@@ -112,6 +112,8 @@ Cambios aplicados a los scripts originales para robustecerlos de cara a un uso p
 - **`install.sh`**: se añadió una sección que clona (o actualiza con `git pull`) los plugins de Oh My Zsh —`zsh-autosuggestions`, `zsh-syntax-highlighting`, `fzf-tab`— y el tema `powerlevel10k`, ya que estos dejaron de versionarse directamente en el repo (ver siguiente punto).
 - **`.gitignore`**: se excluyeron las carpetas de plugins/tema de Oh My Zsh (`.oh-my-zsh/custom/plugins/*` y `.oh-my-zsh/custom/themes/powerlevel10k`), porque cada una contiene su propio repositorio Git anidado. Si se versionan tal cual, Git las trata como *gitlinks* rotos y al clonar en otra máquina esas carpetas aparecen vacías. También se excluyó `*.zwc` (bytecode compilado de Zsh, se regenera automáticamente y es específico de cada máquina).
 - **`exportExtensionesvsCode.sh`** / **`installExtensionesvsCode.sh`**: antes asumían que `vscode-extensions.txt` estaba en el directorio actual desde el que se ejecutaba el script. Ahora ambos resuelven la ruta del propio script (`SCRIPT_DIR`), así que funcionan igual sin importar desde dónde se invoquen. `installExtensionesvsCode.sh` también comprueba que el archivo exista antes de intentar leerlo.
+- **`appsInstaladas.txt`**: era un volcado manual de paquetes que no se mantenía sincronizado con nada. Se eliminó y sus paquetes (Docker, Google Chrome, Terraform, tmux, npm, etc.) se fusionaron en `bootstrap.sh`, que ahora también añade los repositorios apt externos (Docker, Google Chrome, HashiCorp) necesarios para instalarlos.
+- **`install.sh`** / README: se quitó la referencia a `.config/Code/User/keybindings.json`, que no existe en el repo ni se usa (no hay keybindings personalizados que versionar).
 
 ## 📄 Licencia
 

@@ -174,10 +174,6 @@ link_file \
 "$HOME/.config/Code/User/settings.json"
 
 link_file \
-"$DOTFILES/.config/Code/User/keybindings.json" \
-"$HOME/.config/Code/User/keybindings.json"
-
-link_file \
 "$DOTFILES/.config/Code/User/snippets" \
 "$HOME/.config/Code/User/snippets"
 
