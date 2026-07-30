@@ -9,7 +9,7 @@ Mis dotfiles personales: configuración de shell (Zsh + Oh My Zsh + Powerlevel10
 | `.zshrc` | Configuración de Zsh |
 | `.p10k.zsh` | Configuración del tema Powerlevel10k |
 | `.oh-my-zsh/custom` | Plugins/temas personalizados de Oh My Zsh (los plugins de terceros se clonan aparte, no se versionan aquí) |
-| `.gitconfig` | Configuración global de Git |
+| `.gitconfig` | Configuración global de Git (plantilla sin datos personales, ver más abajo) |
 | `.bashrc` / `.profile` | Configuración de Bash |
 | `.ssh/config` | Configuración de cliente SSH (sin claves ni hosts sensibles) |
 | `.config/Code/User` | Settings y snippets de VSCode |
@@ -98,7 +98,12 @@ Elimina del control de versiones los archivos de estado (sesiones, cachés) y av
 
 - Este repositorio **no incluye** claves SSH, historiales de shell, ni credenciales — están excluidos vía `.gitignore`.
 - `.ssh/config` solo contiene alias de host, sin claves privadas.
-- Antes de hacer público este repo, revisa que `.gitconfig` y `.ssh/config` no contengan datos que no quieras compartir (emails, IPs internas, nombres de servidores privados).
+- `.gitconfig` no contiene nombre ni email: esos datos personales van en `~/.gitconfig.local` (fuera del repo, sin versionar), incluido automáticamente vía `[include]`. En una máquina nueva, créalo con:
+  ```bash
+  git config --file ~/.gitconfig.local user.name "Tu Nombre"
+  git config --file ~/.gitconfig.local user.email "tu@email.com"
+  ```
+- Antes de hacer público este repo, revisa que `.ssh/config` no contenga datos que no quieras compartir (IPs internas, nombres de servidores privados).
 
 ## 🖥️ Probado en
 
@@ -114,6 +119,7 @@ Cambios aplicados a los scripts originales para robustecerlos de cara a un uso p
 - **`exportExtensionesvsCode.sh`** / **`installExtensionesvsCode.sh`**: antes asumían que `vscode-extensions.txt` estaba en el directorio actual desde el que se ejecutaba el script. Ahora ambos resuelven la ruta del propio script (`SCRIPT_DIR`), así que funcionan igual sin importar desde dónde se invoquen. `installExtensionesvsCode.sh` también comprueba que el archivo exista antes de intentar leerlo.
 - **`appsInstaladas.txt`**: era un volcado manual de paquetes que no se mantenía sincronizado con nada. Se eliminó y sus paquetes (Docker, Google Chrome, Terraform, tmux, npm, etc.) se fusionaron en `bootstrap.sh`, que ahora también añade los repositorios apt externos (Docker, Google Chrome, HashiCorp) necesarios para instalarlos.
 - **`install.sh`** / README: se quitó la referencia a `.config/Code/User/keybindings.json`, que no existe en el repo ni se usa (no hay keybindings personalizados que versionar).
+- **`.gitconfig`**: contenía el nombre y email personales en texto plano. Se separó en una plantilla versionada (sin datos personales) que incluye `~/.gitconfig.local`, un archivo fuera del repo (no versionado) donde vive la identidad real de cada máquina.
 
 ## 📄 Licencia
 
