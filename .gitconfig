@@ -1,5 +1,4 @@
-[user]
-	name = psanchez
-	email = redacted@example.com
 [alias]
 	grafo = log --oneline --graph --decorate --all
+[include]
+	path = ~/.gitconfig.local
