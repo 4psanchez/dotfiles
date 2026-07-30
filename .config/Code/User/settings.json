@@ -1,5 +1,7 @@
 {
     "redhat.telemetry.enabled": true,
     "workbench.editor.empty.hint": "hidden",
-    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font"
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+    "php.validate.executablePath": "/usr/bin/php",
+    "claudeCode.preferredLocation": "panel"
 }
